@@ -7,28 +7,14 @@ class PerformanceLua
     public static string Test()
     {
         int times = 1 * 1000 * 1000;
-        string outMsg = "";
-        outMsg += "EmptyLoop " + TestEmptyLoop(times);
-        outMsg += "\nBranch " + TestBranch(times);
-        outMsg += "\nVirtualCall " + TestVirtualCall(times);
-        outMsg += "\nFuncCall " + TestFuncCall(times);
+        string outMsg = "\nloop branch " + TestBranch(times);
+        outMsg += "\nvirtual call " + TestVirtualCall(times);
+        outMsg += "\nfunc clall " + TestFuncCall(times);
         return outMsg;
     }
     static double CurrentTimeMillis()
     {
         return TKLua.LuaGameSystem.getInstance().CurrentTimeMillis();
-    }
-    static string TestEmptyLoop(double times)
-    {
-        double result = 0;
-        double startTime = CurrentTimeMillis();
-        for (double i = 0; i < times; i++)
-        {
-            result += i / 5;
-        }
-
-        double duration = CurrentTimeMillis() - startTime;
-        return "times:" + times + " duration:" + duration + " result:" + result;
     }
     public static int Func()
     {

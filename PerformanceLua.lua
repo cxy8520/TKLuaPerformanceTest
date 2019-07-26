@@ -6,7 +6,6 @@ local F_Concat = T_CSLString.Concat
 local F_getInstance = T_SystemManager.getInstance
 -------------
 ---本类型里被引用函数的声明
-local TestEmptyLoop
 local TestBranch
 local TestVirtualCall
 local TestFuncCall
@@ -26,11 +25,9 @@ local PerformanceLua = class('PerformanceLua')
 --ILMethod:System.String PerformanceLua::Test()
 function PerformanceLua.Test()
 	local times = 1000000
-	local outMsg = ''
-	outMsg = F_Concat(outMsg , 'EmptyLoop ' , TestEmptyLoop(times))
-	outMsg = F_Concat(outMsg , '\nBranch ' , TestBranch(times))
-	outMsg = F_Concat(outMsg , '\nVirtualCall ' , TestVirtualCall(times))
-	outMsg = F_Concat(outMsg , '\nFuncCall ' , TestFuncCall(times))
+	local outMsg = F_Concat('\nloop branch ' , TestBranch(times))
+	outMsg = F_Concat(outMsg , '\nvirtual call ' , TestVirtualCall(times))
+	outMsg = F_Concat(outMsg , '\nfunc clall ' , TestFuncCall(times))
 	return outMsg
 end
 
@@ -38,20 +35,6 @@ end
 --ILMethod:System.Double PerformanceLua::CurrentTimeMillis()
 function PerformanceLua.CurrentTimeMillis()
 	return F_getInstance():CurrentTimeMillis()
-end
-
---
---ILMethod:System.String PerformanceLua::TestEmptyLoop(System.Double)
-function PerformanceLua.TestEmptyLoop(times)
-	local result = 0
-	local startTime = CurrentTimeMillis()
-	local i = 0
-	while (i < times) do
-		result = (result + i / 5)
-		i = (i + 1)
-	end
-	local duration = (CurrentTimeMillis() - startTime)
-	return F_Concat(CSLInitArray('times:' , times , ' duration:' , duration , ' result:' , result))
 end
 
 --
@@ -147,7 +130,6 @@ PerformanceLua.BaseClass = BaseClass
 PerformanceLua.SubClass = SubClass
 -------------
 ---本类型里被引用函数的赋值
-TestEmptyLoop = PerformanceLua.TestEmptyLoop
 TestBranch = PerformanceLua.TestBranch
 TestVirtualCall = PerformanceLua.TestVirtualCall
 TestFuncCall = PerformanceLua.TestFuncCall
